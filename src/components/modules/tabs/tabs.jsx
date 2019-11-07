@@ -10,11 +10,16 @@ import Box from '@material-ui/core/Box';
 import { colors } from '../../../theme/globalStyle';
 import NewOrgForm from '../new-org-form/new-org-form';
 
+const StyledTypography = withStyles({
+  root: {
+    fontFamily: 'inherit',
+  },
+})(props => <Typography {...props} />);
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
-    <Typography
+    <StyledTypography
       component="div"
       role="tabpanel"
       hidden={value !== index}
@@ -23,7 +28,7 @@ function TabPanel(props) {
       {...other}
     >
       <Box>{children}</Box>
-    </Typography>
+    </StyledTypography>
   );
 }
 
@@ -61,6 +66,7 @@ const StyledTab = withStyles(theme => ({
     backgroundColor: 'transparent',
     textTransform: 'none',
     color: colors.textFour,
+    fontFamily: 'inherit',
     fontWeight: '600',
     fontSize: theme.typography.pxToRem(12),
     '&:focus': {
@@ -95,7 +101,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TabsOrg = ({ organization }) => {
+const TabsOrg = ({ organization, selectedOrganization, addOrganization }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -113,7 +119,7 @@ const TabsOrg = ({ organization }) => {
           <StTab label="Сохраненные организации" organizationcount={organizationCount.toString()} />
         </StyledTabs>
         <StyledTabPanel value={value} index={0}>
-          <NewOrgForm />
+          <NewOrgForm selectedOrganization={selectedOrganization} addOrganization={addOrganization} />
         </StyledTabPanel>
         <StyledTabPanel value={value} index={1}>
           Item Two

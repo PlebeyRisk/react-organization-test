@@ -4,10 +4,12 @@ import { appAPI } from "../api/api";
 const ADD_ORGANIZATION = 'ADD_ORGANIZATION';
 const DELETE_ORGANIZATION = 'DELETE_ORGANIZATION';
 const SET_FINDED_ORGANIZATION = 'SET_FINDED_ORGANIZATION';
+const SET_SELECTED_ORGANIZATION = 'SET_SELECTED_ORGANIZATION';
 
 const initialState = {
-  organization: null,
-  findedOrganization: null
+  savedOrganization: [],
+  findedOrganization: null,
+  selectedOrganization: null
 };
 
 const appReducer = (state = initialState, action) => {
@@ -15,17 +17,22 @@ const appReducer = (state = initialState, action) => {
     case ADD_ORGANIZATION:
       return {
         ...state,
-        organization: [...state.organization, action.organization]
+        savedOrganization: [...state.savedOrganization, action.organization]
       };
     case DELETE_ORGANIZATION:
       return {
         ...state,
-        organization: [...deleteElementByIndex(state.organization, action.index)]
+        savedOrganization: [...deleteElementByIndex(state.organization, action.index)]
       };
     case SET_FINDED_ORGANIZATION:
       return {
         ...state,
         findedOrganization: action.organization
+      };
+    case SET_SELECTED_ORGANIZATION:
+      return {
+        ...state,
+        selectedOrganization: action.organization
       };
     default:
       return state;
@@ -42,6 +49,10 @@ export const addOrganization = (organization) => ({
 });
 export const setFindedOrganization = (organization) => ({
   type: SET_FINDED_ORGANIZATION,
+  organization
+});
+export const setSelectedOrganization = (organization) => ({
+  type: SET_SELECTED_ORGANIZATION,
   organization
 });
 

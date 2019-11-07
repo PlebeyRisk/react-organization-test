@@ -6,6 +6,10 @@ export const fonts = {
   main: 'Verdana, sans-serif',
 }
 
+export const fontSize = {
+  main: '14px',
+}
+
 export const colors = {
   primary: '#F50634',
   light: '#fff',
@@ -17,7 +21,7 @@ export const colors = {
   textTwo: '#2B292A',
   textThree: '#777777',
   textFour: '#B9B9B9',
-  textLigth: '#fff',
+  textLight: '#fff',
   textRed: '#C31335',
 
   border: '#DFDFDF',
@@ -34,20 +38,25 @@ export const displayKeyPoints = {
 }
 
 const placeholderStyle = `
+  color: ${colors.textFour};
+  font-family: ${fonts.main};
+`;
+
+const placeholder = `
   &::-webkit-input-placeholder {
-    color: ${colors.textFour};
+    ${placeholderStyle}
   }
 
   &:-moz-placeholder { /* Firefox 18- */
-    color: ${colors.textFour};
+    ${placeholderStyle}
   }
 
   &::-moz-placeholder {  /* Firefox 19+ */
-    color: ${colors.textFour};
+    ${placeholderStyle}
   }
 
   &:-ms-input-placeholder {
-    color: ${colors.textFour};
+    ${placeholderStyle}
   }
 `;
 
@@ -146,7 +155,7 @@ const GlobalStyle = createGlobalStyle `
   /* App style */
   body {
     font-family: ${fonts.main};
-    font-size: 14px;
+    font-size: ${fontSize.main};
     background-color: ${colors.grayTwo};
   }
 
@@ -155,7 +164,12 @@ const GlobalStyle = createGlobalStyle `
   }
 
   input, textarea {
-    ${placeholderStyle};
+    font-family: ${fonts.main};
+    ${placeholder};
+  }
+
+  button {
+    cursor: pointer;
   }
 `
 

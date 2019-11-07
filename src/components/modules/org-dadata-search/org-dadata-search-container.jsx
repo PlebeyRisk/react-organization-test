@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import OrgSearchField from './org-dadata-search';
 import { appSEL } from '../../../redux/app-selectors';
-import { findOrganization } from '../../../redux/app-reducer';
+import { findOrganization, setSelectedOrganization } from '../../../redux/app-reducer';
 
 const OrgSearchFieldLogic = props => {
-  const { findOrganization } = props;
+  const { findedOrganization, findOrganization, setSelectedOrganization } = props;
 
   const fetchOrganization = formData => {
     const { organization } = formData;
     findOrganization(organization);
   };
 
-  return <OrgSearchField {...props} onSubmit={fetchOrganization} />;
+  const selectOrganization = index => {
+    console.log(index, findedOrganization[index]);
+    setSelectedOrganization(findedOrganization[index]);
+  };
+
+  return <OrgSearchField {...props} onSubmit={fetchOrganization} selectOrganization={selectOrganization} />;
 };
 
 let mapStateToProps = state => {
@@ -24,6 +29,7 @@ let mapStateToProps = state => {
 
 let mapDispatchToProps = {
   findOrganization,
+  setSelectedOrganization,
 };
 
 const OrgSearchFieldContainer = connect(

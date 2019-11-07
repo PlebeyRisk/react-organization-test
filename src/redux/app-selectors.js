@@ -1,12 +1,17 @@
-export const getOrganization = (state) => {
-  return state.app.organization;
+export const getSavedOrganization = (state) => {
+  return state.app.savedOrganization;
 }
 
 export const getfindedOrganization = (state) => {
   return state.app.findedOrganization;
 }
 
+export const getSelectedOrganization = (state) => {
+  return state.app.selectedOrganization;
+}
+
 export const appSEL = {
-  getOrganization,
-  getfindedOrganization
+  getSavedOrganization,
+  getfindedOrganization,
+  getSelectedOrganization
 };

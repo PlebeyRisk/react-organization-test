@@ -35,9 +35,9 @@ const StyledItem = styled.div`
   }
 `;
 
-const Item = ({ name, inn, address }) => {
+const Item = ({ name, inn, address, index, selectOrganization }) => {
   return (
-    <StyledItem>
+    <StyledItem onClick={() => selectOrganization(index)}>
       <h1>{name}</h1>
       <span>{inn}</span>
       <span>{address}</span>
@@ -45,8 +45,9 @@ const Item = ({ name, inn, address }) => {
   );
 };
 
-const SearchResults = ({ organization }) => {
+const SearchResults = ({ organization, selectOrganization }) => {
   if (!organization || organization === null || organization.length === 0) return <></>;
+
   const items = organization.map((org, index) => (
     <Item
       name={org.value}
@@ -54,10 +55,11 @@ const SearchResults = ({ organization }) => {
       address={org.data.address.data.city_with_type}
       key={index}
       index={index}
+      selectOrganization={selectOrganization}
     />
   ));
 
-  return <StyledSearchResults>{items}</StyledSearchResults>;
+  return <StyledSearchResults onMouseDown={e => e.preventDefault()}>{items}</StyledSearchResults>;
 };
 
 export default SearchResults;
