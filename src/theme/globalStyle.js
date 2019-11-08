@@ -7,7 +7,7 @@ export const fonts = {
 }
 
 export const fontSize = {
-  main: '14px',
+  main: 14,
 }
 
 export const colors = {
@@ -28,14 +28,28 @@ export const colors = {
   borderFocus: '#FAE29F',
 }
 
-export const displayKeyPoints = {
-  lgDesktopWidth: 2035,
-  desktopWidth: 1200,
-  smDesktopWidth: 992,
-  tableWidth: 768,
-  phoneWidth: 576,
-  smPhoneWidth: 480,
+export const size = {
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+  tablet: '768px',
+  laptop: '1024px',
+  laptopL: '1440px',
+  desktop: '2560px'
 }
+
+export const device = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`
+};
+
+export const pxToRem = (size) => `${size / fontSize.main}rem`;
 
 const placeholderStyle = `
   color: ${colors.textFour};
@@ -153,9 +167,19 @@ const GlobalStyle = createGlobalStyle `
   }
 
   /* App style */
+  html {
+    font-size: ${fontSize.main * 0.6}px;
+
+    @media ${device.tablet} {
+      font-size: ${fontSize.main * 0.8}px;
+    }
+    @media ${device.laptop} {
+      font-size: ${fontSize.main}px;
+    }
+  }
+
   body {
     font-family: ${fonts.main};
-    font-size: ${fontSize.main};
     background-color: ${colors.grayTwo};
   }
 

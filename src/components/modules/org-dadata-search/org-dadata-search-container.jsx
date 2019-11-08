@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import OrgSearchField from './org-dadata-search';
 import { appSEL } from '../../../redux/app-selectors';
-import { findOrganization, fieldBlur, selectOrganization } from '../../../redux/app-reducer';
+import { findOrganization, fieldBlur, selectOrganization, fieldChange } from '../../../redux/app-reducer';
 
 const OrgSearchFieldLogic = props => {
   const { findedOrganization, findOrganization, selectOrganization } = props;
@@ -30,6 +30,7 @@ let mapDispatchToProps = {
   findOrganization,
   selectOrganization,
   fieldBlur,
+  fieldChange,
 };
 
 const OrgSearchFieldContainer = connect(

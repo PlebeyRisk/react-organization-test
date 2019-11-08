@@ -11,7 +11,7 @@ const instance = axios.create({
 });
 
 const getOrganization = (term) => {
-  return instance.post(`rs/suggest/party`, {query: term}).then(response => response.data, (error) => console.log('error fetching getOrganization(): ' + error));
+  return instance.post(`rs/suggest/party`, {query: term}).then(response => response.data, (error) => alert(error));
 }
 
 export const appAPI = {

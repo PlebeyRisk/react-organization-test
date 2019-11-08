@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../../theme/globalStyle';
+import { colors, pxToRem } from '../../theme/globalStyle';
 
 const Button = styled.button`
   padding: 12px 40px;
@@ -7,7 +7,7 @@ const Button = styled.button`
   border-radius: 3px;
   background-color: ${colors.primary};
   color: ${colors.textLight};
-  font-size: 18px;
+  font-size: ${pxToRem(18)};
   font-weight: 700;
 
   &:active {

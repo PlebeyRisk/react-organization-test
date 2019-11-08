@@ -3,3 +3,7 @@ export const deleteElementByIndex = (items, index) => {
   newArray.splice(index, 1);
   return newArray;
 }
+
+export const hasObject = (items, obj) =>
+  items.indexOf(obj) >= 0;
+

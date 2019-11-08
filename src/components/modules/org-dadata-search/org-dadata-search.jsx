@@ -21,14 +21,7 @@ const StyledField = styled(Field)`
   z-index: 2;
 `;
 
-const Button = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 3;
-`;
-
-const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganization, fieldBlur }) => {
+const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganization, fieldBlur, fieldChange }) => {
   const [resultsVisibleMode, setResultsVisibleMode] = useState(false);
 
   const showResults = () => {
@@ -37,6 +30,10 @@ const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganizati
 
   const hideResults = () => {
     setResultsVisibleMode(false);
+  };
+
+  const fieldChangeHandler = e => {
+    fieldChange('orgSearch', 'organization', e.target.value);
   };
 
   return (
@@ -50,8 +47,8 @@ const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganizati
           placeholder="Введите название, ИНН или адрес организации"
           onFocus={() => showResults()}
           onBlur={() => hideResults()}
+          onChange={fieldChangeHandler}
         />
-        <Button>Найти</Button>
       </form>
       <SearchResultsWrap hidden={!resultsVisibleMode}>
         <SearchResults

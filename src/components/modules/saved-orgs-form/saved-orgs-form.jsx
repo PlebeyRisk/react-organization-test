@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../theme/globalStyle';
+import { colors, pxToRem, device } from '../../../theme/globalStyle';
 import deleteIcon from '../../../img/delete.svg';
 import moreIcon from '../../../img/more-mark.svg';
 
@@ -29,23 +29,37 @@ const StyledItem = styled.div`
 `;
 
 const ItemTitle = styled.h2`
-  font-size: 18px;
+  padding-right: 30px;
+  font-size: ${pxToRem(18)};
   margin-bottom: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledItemGroup = styled.div`
   display: flex;
+  flex-direction: ${props => (props.inlineMode ? 'row' : 'column')};
   margin-bottom: 10px;
-  font-size: 12px;
+  font-size: ${pxToRem(12)};
 
   :last-child {
     margin-bottom: 0;
   }
+
+  @media ${device.tablet} {
+    flex-direction: row;
+  }
 `;
 
 const GroupTitle = styled.span`
+  margin-bottom: 5px;
   margin-right: 15px;
   color: ${colors.textThree};
+
+  @media ${device.tablet} {
+    flex-direction: row;
+    margin-bottom: 0;
+  }
 `;
 
 const GroupInfo = styled.span``;
@@ -76,7 +90,7 @@ const StyledMoreButton = styled.button`
   padding: 5px;
   border: none;
   background-color: transparent;
-  font-size: 10px;
+  font-size: ${pxToRem(10)};
   text-decoration: underline;
   color: ${colors.textThree};
 `;
@@ -112,8 +126,9 @@ const DeleteButton = ({ removeOrganization, index }) => {
 };
 
 const ItemGroup = ({ title, info }) => {
+  const inlineMode = ['ИНН', 'КПП', 'ОГРН'].includes(title);
   return (
-    <StyledItemGroup>
+    <StyledItemGroup inlineMode={inlineMode}>
       <GroupTitle>{title}</GroupTitle>
       <GroupInfo>{info}</GroupInfo>
     </StyledItemGroup>

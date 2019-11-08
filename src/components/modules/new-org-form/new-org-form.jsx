@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../theme/globalStyle';
+import { colors, pxToRem, device } from '../../../theme/globalStyle';
 import { createId } from '../../../utils/helpers/id';
 import OrgSearchFieldContainer from '../org-dadata-search/org-dadata-search-container';
 import NewOrgInfo from '../new-org-info/new-org-info';
@@ -21,10 +21,18 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 
+const StyledButton = styled(Button)`
+  width: 100%;
+
+  @media ${device.tablet} {
+    width: auto;
+  }
+`;
+
 const StyledSaveStatusLabel = styled.div`
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: ${pxToRem(18)};
   font-weight: 700;
   color: ${colors.textFour};
 
@@ -58,7 +66,7 @@ const NewOrgForm = ({ selectedOrganization, saveOrganization, saveStatus }) => {
         saveStatus ? (
           <SaveStatusLabel />
         ) : (
-          <Button onClick={() => saveOrganization(selectedOrganization)}>Сохранить</Button>
+          <StyledButton onClick={() => saveOrganization(selectedOrganization)}>Сохранить</StyledButton>
         )
       ) : (
         undefined

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../theme/globalStyle';
+import { colors, device, pxToRem } from '../../../theme/globalStyle';
 import addNewIcon from '../../../img/add-new.svg';
 
 const StyledWrap = styled.div`
@@ -13,6 +13,11 @@ const StyledWrap = styled.div`
 const EmptyInfo = styled.div`
   display: flex;
   align-items: center;
+  display: none;
+
+  @media ${device.tablet} {
+    display: flex;
+  }
 `;
 
 const EmptyImg = styled.div`
@@ -35,13 +40,23 @@ const Header = styled.header`
 
 const Body = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 24px 0;
   width: 100%;
+
+  @media ${device.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const LeftWrap = styled.div`
   padding-right: 30px;
+  margin-bottom: 15px;
+
+  @media ${device.tablet} {
+    margin-bottom: 0;
+  }
 `;
 
 const RightWrap = styled.div`
@@ -50,7 +65,7 @@ const RightWrap = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
+  font-size: ${pxToRem(24)};
 `;
 
 const StyledGroup = styled.div`

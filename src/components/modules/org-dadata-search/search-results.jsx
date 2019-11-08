@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../../theme/globalStyle';
+import { colors, pxToRem } from '../../../theme/globalStyle';
 
 const StyledSearchResults = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const StyledItem = styled.div`
   span {
     margin-top: 5px;
     margin-right: 20px;
-    font-size: 12px;
+    font-size: ${pxToRem(12)};
 
     :last-child {
       margin-right: 0;

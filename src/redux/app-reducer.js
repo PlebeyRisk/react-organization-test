@@ -1,6 +1,6 @@
-import { deleteElementByIndex } from "../utils/helpers/objects";
+import { deleteElementByIndex, hasObject } from "../utils/helpers/objects";
 import { appAPI } from "../api/api";
-import { blur } from "redux-form"
+import { blur, change, submit } from "redux-form"
 
 const ADD_ORGANIZATION = 'ADD_ORGANIZATION';
 const DELETE_ORGANIZATION = 'DELETE_ORGANIZATION';
@@ -69,6 +69,7 @@ export const setSelectedOrganization = (organization) => ({
 });
 
 export const findOrganization = (term) => async (dispatch) => {
+  console.log(term);
   if (!term || term.trim().length === 0) {
     dispatch(setFindedOrganization(null));
     return;
@@ -88,16 +89,27 @@ export const saveOrganization = (organization) => dispatch => {
 
 export const selectOrganization = (organization) => dispatch => {
   dispatch(setSelectedOrganization(organization));
-  dispatch(setSaveStatus(false));
 };
 
 export const removeOrganization = (index) => dispatch => {
-  console.log(index);
   dispatch(deleteOrganization(index));
+};
+
+export const updateSaveStatus = (savedOrganization, organization) => dispatch => {
+  if (!savedOrganization || savedOrganization === null || savedOrganization.length === 0) {
+    dispatch(setSaveStatus(false));
+  } else {
+    dispatch(setSaveStatus(hasObject(savedOrganization, organization)));
+  }
 };
 
 export const fieldBlur = (form, field, value) => dispatch => {
   dispatch(blur(form, field, value));
+};
+
+export const fieldChange = (form, field, value) => async (dispatch) => {
+  await dispatch(change(form, field, value));
+  dispatch(submit(form));
 };
 
 export default appReducer;
