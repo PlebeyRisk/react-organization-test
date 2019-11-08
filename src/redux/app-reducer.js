@@ -69,7 +69,6 @@ export const setSelectedOrganization = (organization) => ({
 });
 
 export const findOrganization = (term) => async (dispatch) => {
-  console.log(term);
   if (!term || term.trim().length === 0) {
     dispatch(setFindedOrganization(null));
     return;

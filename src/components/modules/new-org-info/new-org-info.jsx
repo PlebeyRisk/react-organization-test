@@ -13,17 +13,13 @@ const StyledWrap = styled.div`
 const EmptyInfo = styled.div`
   display: flex;
   align-items: center;
-  display: none;
-
-  @media ${device.tablet} {
-    display: flex;
-  }
 `;
 
 const EmptyImg = styled.div`
-  margin-right: 32px;
-  width: 68px;
-  height: 68px;
+  flex: none;
+  margin-right: ${pxToRem(32)};
+  width: ${pxToRem(68)};
+  height: ${pxToRem(68)};
   background: url(${addNewIcon}) center no-repeat;
   background-size: cover;
 `;
