@@ -35,9 +35,9 @@ const StyledItem = styled.div`
   }
 `;
 
-const Item = ({ name, inn, address, index, selectOrganization }) => {
+const Item = ({ name, inn, address, index, clickItemHandler }) => {
   return (
-    <StyledItem onClick={() => selectOrganization(index)}>
+    <StyledItem onClick={() => clickItemHandler(index, name)}>
       <h1>{name}</h1>
       <span>{inn}</span>
       <span>{address}</span>
@@ -45,8 +45,14 @@ const Item = ({ name, inn, address, index, selectOrganization }) => {
   );
 };
 
-const SearchResults = ({ organization, selectOrganization }) => {
+const SearchResults = ({ organization, selectOrganization, blur, setResultsVisibleMode }) => {
   if (!organization || organization === null || organization.length === 0) return <></>;
+
+  const clickItemHandler = (index, orgName) => {
+    selectOrganization(index);
+    blur('orgSearch', 'organization', orgName);
+    setResultsVisibleMode(false);
+  };
 
   const items = organization.map((org, index) => (
     <Item
@@ -55,7 +61,7 @@ const SearchResults = ({ organization, selectOrganization }) => {
       address={org.data.address.data.city_with_type}
       key={index}
       index={index}
-      selectOrganization={selectOrganization}
+      clickItemHandler={clickItemHandler}
     />
   ));
 

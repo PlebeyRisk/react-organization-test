@@ -28,7 +28,7 @@ const Button = styled.button`
   z-index: 3;
 `;
 
-const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganization }) => {
+const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganization, fieldBlur }) => {
   const [resultsVisibleMode, setResultsVisibleMode] = useState(false);
 
   const showResults = () => {
@@ -54,7 +54,12 @@ const OrgSearch = ({ handleSubmit, fieldId, findedOrganization, selectOrganizati
         <Button>Найти</Button>
       </form>
       <SearchResultsWrap hidden={!resultsVisibleMode}>
-        <SearchResults organization={findedOrganization} selectOrganization={selectOrganization} />
+        <SearchResults
+          organization={findedOrganization}
+          selectOrganization={selectOrganization}
+          blur={fieldBlur}
+          setResultsVisibleMode={setResultsVisibleMode}
+        />
       </SearchResultsWrap>
     </StyledOrgSearch>
   );

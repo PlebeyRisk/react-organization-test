@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 
 import { colors } from '../../../theme/globalStyle';
 import NewOrgForm from '../new-org-form/new-org-form';
+import SavedOrgsForm from '../saved-orgs-form/saved-orgs-form';
 
 const StyledTypography = withStyles({
   root: {
@@ -88,7 +89,7 @@ const StyledTab = withStyles(theme => ({
 
 const StTab = styled(StyledTab)`
   ::after {
-    content: '${props => (props.organizationcount ? '(' + props.organizationcount + ')' : '')}';
+    content: '${props => (props.count ? '(' + props.count + ')' : '')}';
   }
 `;
 
@@ -101,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TabsOrg = ({ organization, selectedOrganization, addOrganization }) => {
+const TabsOrg = ({ selectedOrganization, saveOrganization, saveStatus, savedOrganization, removeOrganization }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -109,20 +110,24 @@ const TabsOrg = ({ organization, selectedOrganization, addOrganization }) => {
     setValue(newValue);
   };
 
-  const organizationCount = !organization || organization === null ? 0 : organization.length;
+  const organizationCount = !savedOrganization || savedOrganization === null ? 0 : savedOrganization.length;
 
   return (
     <div className={classes.root}>
       <div className={classes.demo}>
         <StyledTabs value={value} onChange={handleChange}>
           <StTab label="Новая организация" />
-          <StTab label="Сохраненные организации" organizationcount={organizationCount.toString()} />
+          <StTab label="Сохраненные организации" count={organizationCount.toString()} />
         </StyledTabs>
         <StyledTabPanel value={value} index={0}>
-          <NewOrgForm selectedOrganization={selectedOrganization} addOrganization={addOrganization} />
+          <NewOrgForm
+            selectedOrganization={selectedOrganization}
+            saveOrganization={saveOrganization}
+            saveStatus={saveStatus}
+          />
         </StyledTabPanel>
         <StyledTabPanel value={value} index={1}>
-          Item Two
+          <SavedOrgsForm organization={savedOrganization} removeOrganization={removeOrganization} />
         </StyledTabPanel>
         <Typography />
       </div>

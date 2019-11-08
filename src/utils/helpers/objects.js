@@ -1,5 +1,5 @@
-export const deleteElementByIndex = (array, index) => {
-  const newArray = array;
+export const deleteElementByIndex = (items, index) => {
+  const newArray = [...items];
   newArray.splice(index, 1);
   return newArray;
 }

@@ -10,8 +10,13 @@ export const getSelectedOrganization = (state) => {
   return state.app.selectedOrganization;
 }
 
+export const getSaveStatus = (state) => {
+  return state.app.saveStatus;
+}
+
 export const appSEL = {
   getSavedOrganization,
   getfindedOrganization,
-  getSelectedOrganization
+  getSelectedOrganization,
+  getSaveStatus
 };

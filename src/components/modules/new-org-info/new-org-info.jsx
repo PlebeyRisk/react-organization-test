@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../theme/globalStyle';
+import addNewIcon from '../../../img/add-new.svg';
 
 const StyledWrap = styled.div`
   display: flex;
@@ -8,6 +9,25 @@ const StyledWrap = styled.div`
   padding-top: 30px;
   background-color: ${colors.light};
 `;
+
+const EmptyInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const EmptyImg = styled.div`
+  margin-right: 32px;
+  width: 68px;
+  height: 68px;
+  background: url(${addNewIcon}) center no-repeat;
+  background-size: cover;
+`;
+
+const EmptyText = styled.span`
+  max-width: 325px;
+  color: ${colors.textThree};
+`;
+
 const Header = styled.header`
   padding: 5px 0;
   border-bottom: 1px solid ${colors.border};
@@ -83,7 +103,14 @@ const NumberGroup = ({ title, info }) => {
 
 const NewOrgInfo = ({ info }) => {
   if (!info || info === null) {
-    return <StyledWrap></StyledWrap>;
+    return (
+      <StyledWrap>
+        <EmptyInfo>
+          <EmptyImg />
+          <EmptyText>Для добавления новой организации введите ее название, ИНН или адрес.</EmptyText>
+        </EmptyInfo>
+      </StyledWrap>
+    );
   }
 
   return (

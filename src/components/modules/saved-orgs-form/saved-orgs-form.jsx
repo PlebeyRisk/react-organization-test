@@ -1,0 +1,174 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { colors } from '../../../theme/globalStyle';
+import deleteIcon from '../../../img/delete.svg';
+import moreIcon from '../../../img/more-mark.svg';
+
+const StyledForm = styled.div`
+  background-color: ${colors.light};
+`;
+
+const EmptyText = styled.span`
+  color: ${colors.textThree};
+`;
+
+const StyledItem = styled.div`
+  position: relative;
+  margin-bottom: 21px;
+  padding: 16px;
+  padding-bottom: ${props => (props.expandMode ? '46px' : '16px')};
+  background-color: ${colors.light};
+  border: 1px solid ${colors.border};
+  border-radius: 3px;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const ItemTitle = styled.h2`
+  font-size: 18px;
+  margin-bottom: 16px;
+`;
+
+const StyledItemGroup = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 12px;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const GroupTitle = styled.span`
+  margin-right: 15px;
+  color: ${colors.textThree};
+`;
+
+const GroupInfo = styled.span``;
+
+const StyledDeleteButton = styled.button`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+`;
+
+const DeleteButtonImg = styled.span`
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url(${deleteIcon}) center no-repeat;
+  background-size: cover;
+`;
+
+const StyledMoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  font-size: 10px;
+  text-decoration: underline;
+  color: ${colors.textThree};
+`;
+
+const MoreButtonImg = styled.span`
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url(${moreIcon}) center no-repeat;
+  background-size: cover;
+  transform: ${props => (props.expandMode ? 'rotate(180deg)' : 'rotate(0)')};
+`;
+
+const ExpandWrap = styled.div`
+  display: ${props => (props.expandMode ? 'block' : 'none')};
+`;
+
+const MoreButton = ({ toggle, expandMode }) => {
+  return (
+    <StyledMoreButton onClick={toggle}>
+      <span>подробнее</span>
+      <MoreButtonImg expandMode={expandMode} />
+    </StyledMoreButton>
+  );
+};
+
+const DeleteButton = ({ removeOrganization, index }) => {
+  return (
+    <StyledDeleteButton onClick={() => removeOrganization(index)}>
+      <DeleteButtonImg />
+    </StyledDeleteButton>
+  );
+};
+
+const ItemGroup = ({ title, info }) => {
+  return (
+    <StyledItemGroup>
+      <GroupTitle>{title}</GroupTitle>
+      <GroupInfo>{info}</GroupInfo>
+    </StyledItemGroup>
+  );
+};
+
+const Item = ({ index, name, inn, kpp, ogrn, address, management, removeOrganization }) => {
+  const [expandMode, setExpandMode] = useState(false);
+
+  const toggle = () => {
+    setExpandMode(!expandMode);
+  };
+
+  return (
+    <StyledItem expandMode={expandMode}>
+      <DeleteButton removeOrganization={removeOrganization} index={index} />
+      <MoreButton expandMode={expandMode} toggle={toggle} />
+      <ItemTitle>{name}</ItemTitle>
+      <ItemGroup title="ИНН" info={inn} />
+      <ExpandWrap expandMode={expandMode}>
+        <ItemGroup title="КПП" info={kpp} />
+        <ItemGroup title="ОГРН" info={ogrn} />
+        <ItemGroup title="Юридический адрес" info={address} />
+        <ItemGroup title="Генеральный директор" info={management} />
+      </ExpandWrap>
+    </StyledItem>
+  );
+};
+
+const SavedOrgsForm = ({ organization, removeOrganization }) => {
+  if (!organization || organization === null || organization.length === 0) {
+    return (
+      <StyledForm>
+        <EmptyText>Вы еще не сохранили ни одной организации</EmptyText>
+      </StyledForm>
+    );
+  }
+
+  const items = organization.map((org, index) => {
+    return (
+      <Item
+        key={index}
+        index={index}
+        name={org.value}
+        inn={org.data.inn}
+        kpp={org.data.kpp}
+        ogrn={org.data.ogrn}
+        address={org.data.address.unrestricted_value}
+        management={org.data.management.name}
+        removeOrganization={removeOrganization}
+      />
+    );
+  });
+
+  return <StyledForm>{items}</StyledForm>;
+};
+
+export default SavedOrgsForm;
